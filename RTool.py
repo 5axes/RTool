@@ -44,11 +44,30 @@ class RTool(Tool):
         self.setExposedProperties("SelectFaceSupported")
 
         self._select_face_mode = True
-        Selection.selectedFaceChanged.connect(self._ifSelectedFaceChanged)
+        # Selection.selectedFaceChanged.connect(self._ifSelectedFaceChanged)
 
+    def event(self, event):
+        """Handle mouse events
+
+        :param event: type(Event)
+        """
+
+        super().event(event)
+
+        if event.type == Event.MousePressEvent :
+            if not self._select_face_mode:
+                return
+            selected_face = Selection.getSelectedFace()
+            
+            if not Selection.getSelectedFace() or not (Selection.hasSelection() and Selection.getFaceSelectMode()):
+                return
+            
+            Logger.log('d', "selected_face    :{}".format(selected_face))    
+            
+            self._ifSelectedFaceChanged()
 
     def _ifSelectedFaceChanged(self):
-        #Logger.log('d', "_onSelectedFaceChanged    :{}".format(self._select_face_mode))
+        Logger.log('d', "_onSelectedFaceChanged    :{}".format(self._select_face_mode))
         if not self._select_face_mode:
             return
 
@@ -85,8 +104,9 @@ class RTool(Tool):
         gravity_operation = GravityOperation(current_node)
         operation.addOperation(rotate_operation)
         operation.addOperation(gravity_operation)
+        Selection.clearFace()
         operation.push()
-        #Logger.log('d', "rotate_operation    :{}".format(rotate_operation))
+        Logger.log('d', "rotate_operation    :{}".format(rotate_operation))
         # NOTE: We might want to consider unchecking the select-face button after the operation is done.
 
 
