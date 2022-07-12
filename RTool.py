@@ -55,11 +55,12 @@ class RTool(Tool):
         super().event(event)
 
         if event.type == Event.MousePressEvent :
-            if not self._select_face_mode:
-                return
+            #if not self._select_face_mode:
+            #    return
             selected_face = Selection.getSelectedFace()
             
-            if not Selection.getSelectedFace() or not (Selection.hasSelection() and Selection.getFaceSelectMode()):
+            #if not Selection.getSelectedFace() or not (Selection.hasSelection() and Selection.getFaceSelectMode()):
+            if not Selection.getSelectedFace() or not (Selection.hasSelection()):
                 return
             
             Logger.log('d', "selected_face    :{}".format(selected_face))    
@@ -67,9 +68,9 @@ class RTool(Tool):
             self._ifSelectedFaceChanged()
 
     def _ifSelectedFaceChanged(self):
-        Logger.log('d', "_onSelectedFaceChanged    :{}".format(self._select_face_mode))
-        if not self._select_face_mode:
-            return
+        #Logger.log('d', "_onSelectedFaceChanged    :{}".format(self._select_face_mode))
+        #if not self._select_face_mode:
+        #    return
 
         selected_face = Selection.getSelectedFace()
         
@@ -106,7 +107,7 @@ class RTool(Tool):
         operation.addOperation(gravity_operation)
         Selection.clearFace()
         operation.push()
-        Logger.log('d', "rotate_operation    :{}".format(rotate_operation))
+        #Logger.log('d', "rotate_operation    :{}".format(rotate_operation))
         # NOTE: We might want to consider unchecking the select-face button after the operation is done.
 
 
