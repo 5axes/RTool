@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <path
+     style="stroke-width:1.00772"
+     id="path2"
+     d="m 12.238935,1.5671642 c -2.234102,0 -4.4682049,0.8 -6.093007,2.3 V 0.56716418 H 4.1149254 V 7.5671642 h 7.1085086 v -2 H 7.2629795 c 1.3201517,-1.3 3.0465035,-2 4.9759555,-2 3.960456,0 7.10851,3.1 7.10851,6.9999998 0,0.5 0.50775,1 1.015501,1 0.507751,0 1.015501,-0.5 1.015501,-1 0,-4.9999998 -4.062005,-8.9999998 -9.139512,-8.9999998 z" />
+  <text
+     transform="scale(0.95580729,1.046236)"
+     id="text849"
+     y="21.980711"
+     x="5.4716592"
+     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:15.5837px;line-height:1.25;font-family:'NameIt Rounded';-inkscape-font-specification:'NameIt Rounded Bold';stroke-width:0.649052;stroke-miterlimit:4;stroke-dasharray:none"
+     xml:space="preserve"><tspan
+       sodipodi:role="line"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-family:'NameIt Rounded';-inkscape-font-specification:'NameIt Rounded Bold';stroke-width:0.649052;stroke-miterlimit:4;stroke-dasharray:none"
+       y="21.980711"
+       x="5.4716592"
+       id="tspan847">XZ</tspan></text>
+</svg>
