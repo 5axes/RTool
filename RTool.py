@@ -52,7 +52,7 @@ class RTool(Tool):
         self.setExposedProperties("SelectFaceSupported")
 
         self._select_face_mode = True
-        Selection.selectedFaceChanged.connect(self._ifSelectedFaceChanged)
+        # Selection.selectedFaceChanged.connect(self._ifSelectedFaceChanged)
         
 
     def event(self, event):
@@ -64,6 +64,7 @@ class RTool(Tool):
         super().event(event)
 
         if event.type == Event.MousePressEvent :
+            
             #if not self._select_face_mode:
             #    return
             selected_face = Selection.getSelectedFace()
@@ -147,7 +148,7 @@ class RTool(Tool):
 
     def setSelectFaceToLayFlatMode(self, select: bool) -> None:
         """Set the rotate tool to/from 'Lay flat by face'-Mode."""
-
+        Selection.selectedFaceChanged.connect(self._ifSelectedFaceChanged)
         if select != self._select_face_mode or select != Selection.getFaceSelectMode():
             self._select_face_mode = select
             if not select:

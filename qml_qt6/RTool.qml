@@ -43,6 +43,7 @@ Item
             source: UM.Theme.getIcon("LayFlatOnFace")
             color: UM.Theme.getColor("icon")
         }
+		property bool needBorder: true
 
         checkable: true
 
