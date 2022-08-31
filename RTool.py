@@ -1,4 +1,5 @@
 # Copyright (c) 2022 Ultimaker B.V.
+# Modification 2022 5@xes
 # Uranium is released under the terms of the LGPLv3 or higher.
 
 from typing import Optional
@@ -63,7 +64,14 @@ class RTool(Tool):
             if not Selection.getSelectedFace() or not (Selection.hasSelection()):
                 return
             
-            Logger.log('d', "selected_face    :{}".format(selected_face))    
+            Logger.log('d', "selected_face    :{}".format(selected_face))
+            
+            # Just for personnal test and analyse of the code
+            if self._selection_pass is None:
+                # The selection renderpass is used to identify objects in the current view
+                self._selection_pass = CuraApplication.getInstance().getRenderer().getRenderPass("selection")            
+            face_id = self._selection_pass.getFaceIdAtPosition(event.x, event.y)
+            Logger.log('d', "Event face_id    :{}".format(face_id))
             
             self._ifSelectedFaceChanged()
 
@@ -78,6 +86,8 @@ class RTool(Tool):
             return
 
         original_node, face_id = selected_face
+        Logger.log('d', "selected_face    :{}".format(selected_face))
+        Logger.log('d', "face_id          :{}".format(face_id))
         meshdata = original_node.getMeshDataTransformed()
         if not meshdata or face_id < 0:
             return
