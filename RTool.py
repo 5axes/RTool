@@ -2,9 +2,16 @@
 # Modification 2022 5@xes
 # Uranium is released under the terms of the LGPLv3 or higher.
 
-from typing import Optional
+VERSION_QT5 = False
+try:
+    from PyQt6.QtCore import Qt, QTimer
+    from PyQt6.QtWidgets import QApplication
+except ImportError:
+    from PyQt5.QtCore import Qt, QTimer
+    from PyQt5.QtWidgets import QApplication
+    VERSION_QT5 = True
+    
 
-from PyQt6.QtCore import Qt
 
 from UM.Event import Event, MouseEvent, KeyEvent
 from UM.Job import Job
@@ -45,7 +52,8 @@ class RTool(Tool):
         self.setExposedProperties("SelectFaceSupported")
 
         self._select_face_mode = True
-        # Selection.selectedFaceChanged.connect(self._ifSelectedFaceChanged)
+        Selection.selectedFaceChanged.connect(self._ifSelectedFaceChanged)
+        
 
     def event(self, event):
         """Handle mouse events
