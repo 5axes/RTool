@@ -12,7 +12,10 @@ except ImportError:
     from PyQt5.QtWidgets import QApplication
     VERSION_QT5 = True
     
-
+import os
+import os.path
+import math
+import time
 
 from UM.Event import Event, MouseEvent, KeyEvent
 from UM.Job import Job
@@ -31,10 +34,6 @@ from UM.Scene.Selection import Selection
 from UM.Tool import Tool
 from UM.Version import Version
 from UM.View.GL.OpenGL import OpenGL
-
-
-import math
-import time
 
 from UM.i18n import i18nCatalog
 from UM.Resources import Resources
@@ -174,10 +173,4 @@ class RTool(Tool):
             node.setMirror(Vector(1, 1, 1))
 
         Selection.applyOperation(SetTransformOperation, None, Quaternion(), None)
-
-
-
-
-
-
 
