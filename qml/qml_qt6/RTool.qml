@@ -8,7 +8,7 @@ Item
 {
     width: childrenRect.width
     height: childrenRect.height
-    UM.I18nCatalog { id: catalog; name: "uranium"}
+    UM.I18nCatalog { id: catalog; name: "rtool"}
 
     UM.ToolbarButton
     {
@@ -48,8 +48,8 @@ Item
         checkable: true
 
         enabled: UM.Selection.selectionCount == 1
-        checked: UM.ActiveTool.properties.getValue("SelectFaceToLayFlatMode")
-        onClicked: UM.ActiveTool.setProperty("SelectFaceToLayFlatMode", checked)
+        checked: UM.ActiveTool.properties.getValue("SelectFaceToLayAxisMode")
+        onClicked: UM.ActiveTool.setProperty("SelectFaceToLayAxisMode", checked)
 
         visible: UM.ActiveTool.properties.getValue("SelectFaceSupported") == true //Might be undefined if we're switching away from the RotateTool!
     }
@@ -58,6 +58,6 @@ Item
     {
         target: alignFaceButton
         property: "checked"
-        value: UM.ActiveTool.properties.getValue("SelectFaceToLayFlatMode")
+        value: UM.ActiveTool.properties.getValue("SelectFaceToLayAxisMode")
     }
 }

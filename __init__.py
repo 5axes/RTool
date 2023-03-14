@@ -1,4 +1,5 @@
 # Copyright (c) 2015 Ultimaker B.V.
+# 2023 5axes
 # Uranium is released under the terms of the LGPLv3 or higher.
 
 VERSION_QT5 = False
@@ -11,13 +12,13 @@ except ImportError:
 from . import RTool
 
 from UM.i18n import i18nCatalog
-i18n_catalog = i18nCatalog("uranium")
+i18n_catalog = i18nCatalog("rtool")
 
 def getMetaData():
     if not VERSION_QT5:
-        QmlFile="qml_qt6/RTool.qml"
+        QmlFile="qml/qml_qt6/RTool.qml"
     else:
-        QmlFile="qml_qt5/RTool.qml"
+        QmlFile="qml/qml_qt5/RTool.qml"
         
     return {
         "tool": {

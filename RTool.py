@@ -1,6 +1,7 @@
 # Copyright (c) 2022 Ultimaker B.V.
 # Modification 2022 5@xes
 # Uranium is released under the terms of the LGPLv3 or higher.
+# version : 1.0.3, Tranlation
 
 VERSION_QT5 = False
 try:
@@ -36,9 +37,17 @@ import math
 import time
 
 from UM.i18n import i18nCatalog
-i18n_catalog = i18nCatalog("uranium")
+from UM.Resources import Resources
 
+Resources.addSearchPath(
+	os.path.join(os.path.abspath(os.path.dirname(__file__)),'resources')
+)  # Plugin translation file import
 
+catalog = i18nCatalog("rtool")
+
+if catalog.hasTranslationLoaded():
+	Logger.log("i", "RTool Plugin translation loaded!")
+    
 class RTool(Tool):
     """Provides the tool to rotate meshes and groups
        On the XZ plane
@@ -51,8 +60,8 @@ class RTool(Tool):
         # Logger.log('d', "OpenGL Version    :{}".format(OpenGL.getInstance().getOpenGLVersion()))
         self.setExposedProperties("SelectFaceSupported")
 
-        self._select_face_mode = True
-        # Selection.selectedFaceChanged.connect(self._ifSelectedFaceChanged)
+        self._select_x_face_mode = False
+        Selection.selectedFaceChanged.connect(self._ifSelectedFaceChanged)
         
 
     def event(self, event):
@@ -65,8 +74,8 @@ class RTool(Tool):
 
         if event.type == Event.MousePressEvent :
             
-            #if not self._select_face_mode:
-            #    return
+            if not self._select_x_face_mode:
+                return
             selected_face = Selection.getSelectedFace()
             
             #if not Selection.getSelectedFace() or not (Selection.hasSelection() and Selection.getFaceSelectMode()):
@@ -75,19 +84,21 @@ class RTool(Tool):
             
             Logger.log('d', "selected_face    :{}".format(selected_face))
             
+            """
             # Just for personnal test and analyse of the code
             if self._selection_pass is None:
                 # The selection renderpass is used to identify objects in the current view
                 self._selection_pass = CuraApplication.getInstance().getRenderer().getRenderPass("selection")            
             face_id = self._selection_pass.getFaceIdAtPosition(event.x, event.y)
             Logger.log('d', "Event face_id    :{}".format(face_id))
+            """
             
-            self._ifSelectedFaceChanged()
+            # self._ifSelectedFaceChanged()
 
     def _ifSelectedFaceChanged(self):
-        #Logger.log('d', "_onSelectedFaceChanged    :{}".format(self._select_face_mode))
-        #if not self._select_face_mode:
-        #    return
+        #Logger.log('d', "_onSelectedFaceChanged    :{}".format(self._select_x_face_mode))
+        if not self._select_x_face_mode:
+            return
 
         selected_face = Selection.getSelectedFace()
         
@@ -139,21 +150,21 @@ class RTool(Tool):
         # Use a dummy postfix, since an equal version with a postfix is considered smaller normally.
         return Version(OpenGL.getInstance().getOpenGLVersion()) >= Version("4.1 dummy-postfix")
 
-    def getSelectFaceToLayFlatMode(self) -> bool:
+    def getSelectFaceToLayAxisMode(self) -> bool:
         """Whether the rotate tool is in 'Lay flat by face'-Mode."""
 
         if not Selection.getFaceSelectMode():
-            self._select_face_mode = False  # .. but not the other way around!
-        return self._select_face_mode
+            self._select_x_face_mode = False  # .. but not the other way around!
+        return self._select_x_face_mode
 
-    def setSelectFaceToLayFlatMode(self, select: bool) -> None:
+    def setSelectFaceToLayAxisMode(self, select: bool) -> None:
         """Set the rotate tool to/from 'Lay flat by face'-Mode."""
         Selection.selectedFaceChanged.connect(self._ifSelectedFaceChanged)
-        if select != self._select_face_mode or select != Selection.getFaceSelectMode():
-            self._select_face_mode = select
+        if select != self._select_x_face_mode or select != Selection.getFaceSelectMode():
+            self._select_x_face_mode = select
             if not select:
                 Selection.clearFace()
-            Selection.setFaceSelectMode(self._select_face_mode)
+            Selection.setFaceSelectMode(self._select_x_face_mode)
             self.propertyChanged.emit()
 
     def resetRotation(self):
